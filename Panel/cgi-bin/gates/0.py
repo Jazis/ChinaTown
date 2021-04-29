@@ -24,7 +24,7 @@ def SiteStringLine(ip, host, pagel, objects, title):
     with connection:
         with connection.cursor() as cursor:
             # Create a new record
-            sql = f"INSERT INTO `sites` (`IP`, `URL`, `PageLeight`, `Obejcts`, `Title`) VALUES (\'{ip}\', \'{host}\', \'{pagel}\', \'{objects}\', \'{title}\')"
+            sql = f"INSERT INTO `sites` (`IP`, `URL`, `PageLeight`, `Objects`, `Title`) VALUES (\'{ip}\', \'{host}\', \'{pagel}\', \'{objects}\', \'{title}\')"
             cursor.execute(sql)
         connection.commit()
 

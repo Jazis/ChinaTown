@@ -1,5 +1,6 @@
 import pymysql
 import pymysql.cursors
+
 def authorize():
     connection = pymysql.connect(host='localhost',
                              user='user',
@@ -25,4 +26,13 @@ def data_load(token):
         sql = f"SELECT `Username` FROM `users` WHERE `token` = \'{token}\' "
         cursor.execute(sql)
         result = cursor.fetchone()
+    return result
+
+def openDirsDataLoading():
+    connection = authorize()
+    with connection.cursor() as cursor:
+        # Read a single record
+        sql = "SELECT * FROM `sites`"
+        cursor.execute(sql)
+        result = cursor.fetchall()
     return result

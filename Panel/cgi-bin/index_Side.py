@@ -1,8 +1,9 @@
+import sys
 def menuString():
     index = """
-           <tr><td><a href='../cgi-bin/index.py' style="padding-top: 0px; padding-right: 70px; padding-bottom: 0px;">Main page</a></tr></td>
-           <tr><td><a href='../cgi-bin/profile.py' style="padding-top: 0px; padding-right: 70px; padding-bottom: 0px;">Profile</a></tr></td>
-           <tr><td><a href='../cgi-bin/opendirs.py' style="padding-top: 0px; padding-right: 70px; padding-bottom: 0px;">Open dirs</a></tr></td>
+           <tr><td><a href='../cgi-bin/index.py' style="padding-top: 0px; padding-right: 10px; padding-bottom: 0px;">Main page</a></td></tr>
+           <tr><td><a href='../cgi-bin/profile.py' style="padding-top: 0px; padding-right: 10px; padding-bottom: 0px;">Profile</a></td></tr>
+           <tr><td><a href='../cgi-bin/opendirs.py' style="padding-top: 0px; padding-right: 10px; padding-bottom: 0px;">Open dirs</a></td></tr>
     """
     return index
 
@@ -20,10 +21,12 @@ def leftSide():
           <style>
            aside {
             background: #f0f0f0;
-            padding: 10px;
-            width: 200px;
-            min-height:100vh;
+            padding: 20px;
+            width: 180px;
             float: left;
+            padding-bottom: 100pc;
+            margin-bottom: 100pc;
+            height: 100pc;
            }
            article {
             margin-right: 240px;
@@ -63,4 +66,35 @@ def rightSideProfile(name):
     </body>
     </html>
     """ % name
+    return index
+
+def rightSideOpenDirs(data):
+    dataStorage = ""
+    sys.stdin.reconfigure(encoding='utf-8')
+    sys.stdout.reconfigure(encoding='utf-8')
+    for row in data:
+        try:
+            dataStorage += "<tr><td>"
+            dataStorage += row['IP']
+            dataStorage += "</td><td>"
+            dataStorage +=  row['URL']
+            dataStorage += "</td><td>"
+            dataStorage +=  row['PageLeight']
+            dataStorage += "</td><td>"
+            dataStorage +=  row['Objects']
+            dataStorage += "</td><td>"
+            dataStorage +=  row['Title']
+            dataStorage += "</td></tr>"
+            # dataStorage += row['IP'] + " | " + row['URL'] + " | " + row['PageLeight'] + " | " + row['Objects'] + " | " + str(row['Title']) + "<br>"
+        except: pass
+    index = """
+     <article>
+     <header><h1>Main page</h1></header>
+     <table border="1">
+      %s
+      </table>
+       </article>
+    </body>
+    </html>
+    """ % dataStorage
     return index
