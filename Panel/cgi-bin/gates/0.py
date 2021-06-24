@@ -30,6 +30,7 @@ def SiteStringLine(ip, host, pagel, objects, title):
 
 
 form = cgi.FieldStorage()
+open("gates.log", "a+", encoding="utf-8").write(str(form) + "\n")
 if form.__contains__("host"):
     ip = form.__contains__("ip")
     host = form.__contains__("host")

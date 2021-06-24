@@ -3,22 +3,26 @@ import http.cookies
 from mylib import authorize
 from mylib import data_load
 from mylib import openDirsDataLoading
+from mylib import filtersLoad
 from index_Side import leftSide
-from index_Side import rightSideProfile
+from index_Side import rightSideFilters
 from index_Side import rightSideOpenDirs
+from index_Side import rightSideOpenDirsFilters
 import os
 import sys
 
 def page_construct():
-    # try:
-    name = data_load(token)['Username']
-    print("Content-type: text/html\n")
-    data = openDirsDataLoading()
-    print(leftSide())
-    print(rightSideOpenDirs(data))
-    # except:
-    #     print("Content-type: text/html\n")
-    #     print("<html><body><h4>page error</h4></body></html>")
+    try:
+        name = data_load(token)['Username']
+        print("Content-type: text/html\n")
+        data = openDirsDataLoading()
+        filters = filtersLoad()
+        print(leftSide())
+        print(rightSideOpenDirsFilters())
+        print(rightSideOpenDirs(data))
+    except:
+        print("Content-type: text/html\n")
+        print("<html><body><h4>page error</h4></body></html>")
 
 
 form = cgi.FieldStorage()

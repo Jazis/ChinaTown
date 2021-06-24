@@ -28,6 +28,15 @@ def leftSide():
             margin-bottom: 100pc;
             height: 100pc;
            }
+          bside {
+           background: #f0f0f0;
+           padding: 20px;
+           width: 180px;
+           float: right;
+           padding-bottom: 100pc;
+           margin-bottom: 100pc;
+           height: 100pc;
+          }
            article {
             margin-right: 240px;
             display: block;
@@ -60,7 +69,7 @@ def rightSideMenu():
 def rightSideProfile(name):
     index = """
      <article>
-     <header><h1>Main page</h1></header>
+     <header><h1>Profile</h1></header>
       Hello %s
        </article>
     </body>
@@ -78,6 +87,10 @@ def rightSideOpenDirs(data):
             dataStorage += row['IP']
             dataStorage += "</td><td>"
             dataStorage +=  row['URL']
+            if "Welcome to XAMPP" in row['Title']:
+                dataStorage += "<br><a style='padding: 0px' href='%s'>Admin</a>" % str(row['URL'] + "phpmyadmin")
+                dataStorage += "  |  "
+                dataStorage += "<a style='padding: 0px' href='%s'>Setup</a>" % str(row['URL'] + "phpmyadmin/setup/")
             dataStorage += "</td><td>"
             dataStorage +=  row['PageLeight']
             dataStorage += "</td><td>"
@@ -89,7 +102,7 @@ def rightSideOpenDirs(data):
         except: pass
     index = """
      <article>
-     <header><h1>Main page</h1></header>
+     <header><h1>Pull of ips</h1></header>
      <table border="1">
       %s
       </table>
@@ -97,4 +110,47 @@ def rightSideOpenDirs(data):
     </body>
     </html>
     """ % dataStorage
+    return index
+
+def rightSideFilters(data):
+    dataStorage = ""
+    sys.stdin.reconfigure(encoding='utf-8')
+    sys.stdout.reconfigure(encoding='utf-8')
+    for row in data:
+        try:
+            dataStorage += "<tr><td><input type=\"checkbox\" name=\""
+            dataStorage += row
+            dataStorage += "\" value=\""
+            dataStorage += row
+            dataStorage += ">"
+            dataStorage += row
+            dataStorage += "</td></tr>"
+        except: pass
+    index = """
+     <bside>
+     <table border="1">
+      %s
+     </table>
+     </bside>
+    """ % dataStorage
+    return index
+
+def rightSideOpenDirsFilters():
+    index = """
+    <bside style="
+        margin-bottom: 0px;
+        /* padding-bottom: 400px; */
+        height: 100px;
+        margin-top: -100;
+        margin-top: -100;
+        ">
+        <form method="POST" action="../cgi-bin/opendirsFiltering.py">
+            <table border="1"style="width: 182px;">
+              <tbody>
+              <tr><td><input type="checkbox" name="option1" value="on">Only XAMPP</td></tr>
+              <tr><td>-</td></tr>
+              <tr><td><button type="submit">Accept filters</button></td></tr>
+             </tbody></table></form>
+          </bside>
+    """
     return index
